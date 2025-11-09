@@ -114,10 +114,6 @@ class AddressBook(UserDict):
         return result
 
 
-# ---------------------------
-# 🎯 Збереження / завантаження через pickle
-# ---------------------------
-
 def save_data(book, filename="addressbook.pkl"):
     with open(filename, "wb") as f:
         pickle.dump(book, f)
@@ -129,10 +125,6 @@ def load_data(filename="addressbook.pkl"):
     except FileNotFoundError:
         return AddressBook()
 
-
-# ---------------------------
-# 🎯 Декоратор з розширеною обробкою помилок
-# ---------------------------
 
 def input_error(func):
     def inner(*args, **kwargs):
@@ -148,10 +140,6 @@ def input_error(func):
             return f"Error: {e}"
     return inner
 
-
-# ---------------------------
-# 🎯 Хендлери команд
-# ---------------------------
 
 @input_error
 def add_contact(args, book: AddressBook):
@@ -223,10 +211,6 @@ def birthdays(args, book: AddressBook):
         grouped.setdefault(item["congratulation_date"], []).append(item["name"])
     return "\n".join(f"{day}: {', '.join(names)}" for day, names in grouped.items())
 
-
-# ---------------------------
-# 🎯 Основна логіка
-# ---------------------------
 
 def main():
     book = load_data()
